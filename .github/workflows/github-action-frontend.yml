@@ -60,9 +60,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Git Repo Code.
-        uses: actions/checkout@v2
-
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
@@ -74,5 +71,5 @@ jobs:
 
       - name: Run deploy script
         #run: ssh ubuntu@${{ secrets.FE_SERVER_IP }} bash 1-deploy.sh
-        run: ssh ubuntu@${{ secrets.FE_SERVER_IP }} bash ~/awesome-nextapp/deploy.sh  
+        run: ssh ubuntu@${{ secrets.FE_SERVER_IP }} bash ~/deploy.sh
         
