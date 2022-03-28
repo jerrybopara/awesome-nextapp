@@ -70,5 +70,5 @@ jobs:
 
       - name: Run deploy script
         #run: ssh ubuntu@${{ secrets.FE_SERVER_IP }} bash 1-deploy.sh 
-        run: ssh ubuntu@${{ secrets.FE_SERVER_IP }} bash deploy.sh
+        run: ssh ubuntu@${{ secrets.FE_SERVER_IP }} bash deploy.sh  
         
