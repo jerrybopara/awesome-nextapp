@@ -29,11 +29,11 @@ jobs:
           pm2 describe next-js > /dev/null
           RUNNING=$?
           if [ "${RUNNING}" -ne 0 ]; then
-            echo "node is running"
+            echo "node is not running."
             # pm2 stop next-js
             # pm2 delete next-js
           else
-            echo "Let's start New one."
+            echo "Node is Running."
             # pm2 start npm --name "next-js" -- startpm2 restart appname
           fi;
     
