@@ -24,19 +24,24 @@ jobs:
       - run: yarn install
       - run: yarn build
       
-      - name: Reload the Pm2 App
+      - name: Check Pm2 Process
+        id: main
         run: |
-          pm2 describe next-js > /dev/null
-          RUNNING=$?
-          if [ "${RUNNING}" -ne 0 ]; then
-            echo "node is not running."
-            # pm2 stop next-js
-            # pm2 delete next-js
-          else
-            echo "Node is Running."
-            # pm2 start npm --name "next-js" -- startpm2 restart appname
-          fi;
+          OUTPUT=$(pm2 describe ${{ env.APPNAME }} > /dev/null 2>&1 && echo "0" || echo "1") && 
+          echo "::set-output name=OUTPUT::$OUTPUT" 
     
+      - name: When App node is Running.
+        if: steps.main.outputs.OUTPUT == 0
+        run: | 
+          pm2 stop ${{ env.APPNAME }}
+          pm2 delete ${{ env.APPNAME }}
+          pm2 start npm --name ${{ env.APPNAME }} -- start
+
+      - name: When App node is Not Running.
+        if: steps.main.outputs.OUTPUT == 1
+        run: | 
+          pm2 start npm --name ${{ env.APPNAME }} -- start
+
       # - run: pm2 reload next-js
       # - run: pm2 delete ${{ env.APPNAME }}
       # - run: pm2 kill 
