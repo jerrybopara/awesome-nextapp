@@ -25,6 +25,7 @@ jobs:
       - run: yarn build
       # - run: pm2 reload next-js
       # - run: pm2 delete ${{ env.APPNAME }}
+      - run: pm2 kill 
       - run: pm2 start npm --name ${{ env.APPNAME }} -- start
         env:
           CI: true
