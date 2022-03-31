@@ -43,5 +43,4 @@ jobs:
           pm2 start npm --name ${{ env.APPNAME }} -- start
 
         env:
-          CI: true  
-       
+          CI: true
